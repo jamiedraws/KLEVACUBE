@@ -1,0 +1,68 @@
+$select: ".header" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/background";
+@use "./../abstracts/text";
+
+@mixin base {
+    #{$select} {
+        &__in {
+            padding: 1.5rem 1rem;
+        }
+
+        &__group {
+            @include group.contain-flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: nowrap;
+        }
+
+        &__logo {
+            flex-basis: queries.em(334);
+        }
+
+        &__title {
+            flex-basis: 43ch;
+
+            @include text.header-title {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+            }
+        }
+
+        &__action {
+            flex-basis: auto;
+        }
+
+        @media all and (max-width: queries.get(navbar)) {
+            font-size: 2vw;
+        }
+
+        @content;
+    }
+}
+
+@mixin has-nav {
+    #{$select} {
+        &--has-nav {
+            @media all and (max-width: queries.get(navbar)) {
+                #{$select} {
+                    &__in {
+                        display: none;
+                    }
+                }
+            }
+
+            #{$select} {
+            }
+
+            @content;
+        }
+    }
+}

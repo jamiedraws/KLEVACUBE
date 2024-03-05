@@ -1,0 +1,15 @@
+$select: ".divide-sections" !default;
+
+@mixin base {
+    #{$select} {
+        max-width: var(--section-container);
+        width: 100%;
+
+        border-top: 2px solid var(--color-second-c);
+
+        margin-inline: auto;
+        margin-block: 2rem;
+
+        @content;
+    }
+}

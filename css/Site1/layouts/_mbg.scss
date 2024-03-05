@@ -1,0 +1,80 @@
+$select: ".mbg" !default;
+
+// config
+@use "./../config/colors";
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "Shared/scss/templates/base/abstracts/background";
+@use "./../abstracts/text";
+
+@mixin base {
+    #{$select} {
+        @include fonts.base-em(18);
+        font-weight: 500;
+
+        padding-block: 1.5rem;
+
+        background: var(--color-second-grad);
+        color: white;
+
+        &__group {
+            @include group.contain-flex($gap: 1rem) {
+            }
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        &__badge {
+            flex-basis: queries.cascade-em(157);
+            padding: 1rem;
+
+            box-sizing: content-box;
+        }
+
+        &__text {
+            flex-basis: 26em;
+            flex-grow: 1;
+
+            max-width: 80ch;
+
+            padding-right: 2rem;
+
+            @include space.between-flow-elements($gap: 0.5rem) {
+            }
+        }
+
+        &__title {
+            @include text.section-title {
+                color: inherit;
+                font-size: clamp(
+                    fonts.cascade-em(22),
+                    4vw,
+                    fonts.cascade-em(45)
+                );
+            }
+        }
+
+        @media all and (min-width: queries.set(801)) {
+            border-radius: 10rem;
+        }
+
+        @media all and (max-width: queries.set(800)) {
+            #{$select} {
+                &__text {
+                    padding-inline: 1rem;
+                }
+
+                &__badge {
+                    padding: 0;
+                }
+            }
+        }
+
+        @content;
+    }
+}

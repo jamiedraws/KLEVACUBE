@@ -1,0 +1,185 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage<OrderPageViewData>" %>
+
+<%@ Import Namespace="Dtm.Framework.ClientSites" %>
+<%@ Import Namespace="KLEVACUBE.UIComponents" %>
+
+<!DOCTYPE html>
+<html lang="en-au" class="dtm">
+<head>
+    <title><%= Model.PageTitle %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="<%= Model.PageMetaDescription %>">
+    <meta name="keywords" content="<%= Model.PageMetaKeywords %>">
+
+    <%
+        string androidThemeBarColor = SettingsManager.ContextSettings["AndroidThemeBarColor", "#ffffff"];
+
+        // represents the 1200x630 thumbnail image for Open Graph
+        string getFacebookImage = SettingsManager.ContextSettings["SocialPlugins.Facebook.OpenGraphImage"];
+
+        // represents the 1200x630 thumbnail image for Twitter
+        string getTwitterImage = SettingsManager.ContextSettings["SocialPlugins.Twitter.OpenGraphImage"];
+
+        string productName = SettingsManager.ContextSettings["Label.ProductName"];
+
+        OrderButton orderButton = ViewData["OrderButton"] as OrderButton ?? new OrderButton();
+
+        ViewData["OrderButton"] = orderButton;
+    %>
+
+    <meta name="theme-color" content="<%= androidThemeBarColor %>">
+
+    <%-- Open Graph Metadata --%>
+    <meta property="og:title" content="<%= Model.PageTitle %>">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="<%= Model.PageMetaDescription %>">
+    <meta property="og:url" content="<%= DtmContext.Domain.FullDomainOfferVersionUrl(DtmContext.PageCode) %>">
+    <meta property="og:image" content="<%= getFacebookImage %>">
+
+    <%-- Twitter Metadata --%>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= Model.PageTitle %>">
+    <meta name="twitter:description" content="<%= Model.PageMetaDescription %>">
+    <meta name="twitter:image" content="<%= getTwitterImage %>">
+    <meta name="twitter:domain" content="<%= DtmContext.Domain.FullDomainOfferVersionUrl(DtmContext.PageCode) %>">
+    <meta name="oke:subscriber_id" content="7e4d48de-557c-49b6-b98b-436a88fad899" >
+
+    <meta name="facebook-domain-verification" content="0pjbctdxe1538e87m7tr554oy3qeuh" />
+
+    <%
+        var mainSeoDomain = DtmContext.CampaignDomains
+            .Where(cd => cd.IsSEO).FirstOrDefault()
+            ?? DtmContext.CampaignDomains
+            .Where(cd => cd.IsIndexable).FirstOrDefault()
+            ?? DtmContext.Domain;
+
+        string canonicalUrl = DtmContext.PageCode.Equals("Index")
+            ? mainSeoDomain.Url
+            : mainSeoDomain.FullDomainCustomPathContext(DtmContext.Page.PageAlias) + DtmContext.ApplicationExtension;
+
+        canonicalUrl = canonicalUrl.Replace("http://", "https://");
+    %>
+
+    <% if (DtmContext.IsProxyIpAddress || DtmContext.CampaignDomains.Any(d => d.DomainId == DtmContext.DomainId && d.Domain.ToLower().Contains("dtmstage")))
+        { %>
+
+    <meta name="robots" content="noindex, nofollow">
+
+    <% }
+        else
+        { %>
+
+    <meta name="google-site-verification" content="<%= Model.PageMetaVerify %>">
+    <meta name="google-site-verification" content="N_t9VPdrP6VtfLwDi3i4IDIA9CGsJ7D-yqDd3skw7jw" />
+    <meta name="msvalidate.01" content="617F9E44E7841BBC8E57FE0772BB9DD9">
+    <link rel="canonical" href="<%= canonicalUrl %>">
+
+    <% } %>
+
+    <link rel="alternate" hreflang="en-au" href="<%= canonicalUrl %>" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#30b2e6">
+    <meta name="msapplication-TileColor" content="#30b2e6">
+
+    <% Html.RenderPartial("GetVersionStyles"); %>
+
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+</head>
+
+<body class="dtm__in">
+
+    <% Html.RenderPartial("Header", Model); %>
+
+    <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+
+    <section aria-labelledby="mbg-title" class="view  section">
+        <div id="mbg" class="view__anchor"></div>
+        <div class="view__in section__in">
+            <div class="mbg">
+                <div class="mbg__group">
+                    <picture class="mbg__badge">
+                        <source srcset="/images/Site1/mbg-seal.webp" type="image/webp">
+                        <img src="/images/Site1/mbg-seal.png" alt="60-Day Money Back Guarantee" width="157" height="155" loading="lazy">
+                    </picture>
+                    <div class="mbg__text">
+                        <h2 id="mbg-title" class="mbg__title">Try <%= productName %> Risk Free!</h2>
+                        <p>We’re so confident that you’ll love <%= productName %>, we offer a money back guarantee. Try it for 60 Days, RISK FREE! If you don&rsquo;t LOVE your Cube Cutter, simply send it back!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section aria-labelledby="bottom-offer-title" class="view main-offer main-offer--below-fold section">
+        <div id="bottom-offer" class="view__anchor"></div>
+        <div class="view__in main-offer__in section__in">
+            <div class="main-offer__group">
+                <div class="main-offer__bogo-price-order">
+                    <div class="main-offer__bogo">
+                        <picture>
+                            <source srcset="/images/Site1/bogo.webp" type="image/webp">
+                            <img src="/images/Site1/bogo.png" alt="Buy One Get One FREE!!" width="367" height="186" loading="lazy">
+                        </picture>
+                    </div>
+
+                    <div class="main-offer__price-order-payment">
+                        <div class="main-offer__sale-price-strikethrough">
+                            <div class="main-offer__sale">50% OFF</div>
+                            <div class="main-offer__price-strikethrough">
+                                <div class="sr">
+                                    <div class="sr__text">Was $159.90</div>
+                                    <div class="offer offer--strikethrough" aria-hidden="true" role="presentation">
+                                        <span class="offer__standfirst">Was</span>
+                                        <span class="offer__currency">$</span>
+                                        <span class="offer__amt">159</span>
+                                        <span class="offer__follow">
+                                            <span class="offer__cent">90</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-offer__price">
+                                <div class="sr">
+                                    <div class="sr__text">Now Only $79.95</div>
+                                    <div class="offer" aria-hidden="true" role="presentation">
+                                        <span class="offer__standfirst">Now Only</span>
+                                        <span class="offer__currency">$</span>
+                                        <span class="offer__amt">79</span>
+                                        <span class="offer__follow">
+                                            <span class="offer__cent">95</span>
+                                            <span class="offer__disclaimer">+ P&H</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-offer__product-offer">
+                    <picture>
+                        <source srcset="/images/Site1/main-offer-slides/main-offer-below-fold.webp" type="image/webp">
+                        <img src="/images/Site1/main-offer-slides/main-offer-below-fold.png" alt="60-Day Money Back Guarantee. Australian Owned Certified. Eat Healthier With A Faster Prep Time. Google Trusted Store. Free downloadable e-book with every purchase, available during checkout. 10 piece set. slice, dice, chop, shred, julienne, strip, grind, grate, zest, wedge" loading="lazy" width="718" height="429">
+                    </picture>
+                </div>
+
+            </div>
+            <br>
+
+            <div class="unlock-product__button">
+
+                <%= orderButton.CreateHTML("Click Here To Order Now") %>
+            </div>
+            
+        </div>
+    </section>
+
+    <% Html.RenderPartial("Footer", Model); %>
+</body>
+
+</html>

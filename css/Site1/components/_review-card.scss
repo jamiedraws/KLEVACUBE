@@ -1,0 +1,38 @@
+$select: ".review-card" !default;
+
+// config
+@use "./../config/colors";
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "./../abstracts/text";
+
+@mixin base {
+    #{$select} {
+        padding: 1.5rem;
+        border: 1px solid var(--color-second);
+        box-shadow: 1px 3px 10px rgba(12, 82, 140, 0.55);
+
+        text-align: left;
+
+        figcaption {
+            font-size: fonts.em(22);
+            font-weight: 800;
+            font-style: italic;
+            color: var(--color-second);
+        }
+
+        blockquote {
+            font-size: fonts.em(18);
+        }
+
+        &__rating {
+            margin-bottom: 1rem;
+        }
+
+        @content;
+    }
+}

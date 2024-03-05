@@ -1,0 +1,189 @@
+@use "sass:math";
+
+$select: ".nav" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// layouts
+@use "Shared/scss/templates/base/layouts/nav" with (
+    $colors: (
+        text: var(--nav-text-color, var(--main-text-color)),
+        background: var(--nav-background-color, var(--main-background-color)),
+        button-close: var(--nav-button-close-color, var(--nav-text-color))
+    ),
+    $mq: (
+        container-min: queries.get(navbar),
+        container-max: queries.get(navbar)
+    )
+);
+
+// abstracts
+@use "./../abstracts/text";
+@use "Shared/scss/templates/base/abstracts/background";
+@use "Shared/scss/templates/base/abstracts/contain";
+
+@mixin base {
+    @include nav.base {
+        font-family: fonts.get(primary);
+        font-size: fonts.em(16);
+
+        z-index: 11;
+
+        box-shadow: none;
+
+        &__logo {
+            flex-basis: queries.em(334);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            transition: transform 0.3s ease-in-out;
+
+            picture {
+                @include contain.container;
+                @include contain.pseudo($fill: true);
+
+                &::before {
+                    @include contain.ratio($ratio: math.div(334, 70));
+                }
+            }
+
+            > * {
+                flex: 1;
+            }
+        }
+
+        &__link {
+            position: relative;
+
+            text-transform: uppercase;
+            font-weight: 500;
+
+            &:last-of-type {
+                color: var(--color-third);
+                font-style: italic;
+                font-weight: 800;
+            }
+        }
+
+        &__title {
+            flex-basis: 43ch;
+
+            @include text.header-title {
+                flex-direction: column;
+            }
+        }
+    }
+
+    @include nav.bar {
+        overflow: hidden;
+
+        &__group {
+            flex-wrap: wrap;
+        }
+
+        &__logo,
+        &__title {
+            display: none;
+        }
+
+        &__pane {
+            flex-basis: 100%;
+            align-self: flex-end;
+        }
+
+        &__pane::after {
+            transition: 0.3s ease-in-out;
+            background: linear-gradient(#0a3a67 52%, #02203c 52%, #0a3a67);
+
+            border-radius: 2em;
+            filter: drop-shadow(1px 2px 3px rgba(12, 82, 140, 0.25));
+        }
+
+        &__list {
+            gap: 0.25rem;
+
+            color: white;
+        }
+
+        &__link {
+            padding: 0.75em 1.25em;
+        }
+
+        &__pane &__group {
+            max-width: queries.get(section-max);
+            margin: 0 auto;
+        }
+    }
+
+    @include nav.drawer {
+        filter: drop-shadow(1px 2px 3px rgba(12, 82, 140, 0.25));
+
+        &__logo {
+            max-width: 14em;
+        }
+
+        &__title {
+            display: flex;
+        }
+
+        &__in > &__title {
+            font-size: 1.25em;
+        }
+
+        &__list > &__title {
+            align-items: flex-start;
+            font-size: 1.2em;
+            padding-inline: 1rem;
+        }
+
+        &__list > &__logo {
+            margin: 0;
+        }
+
+        & &__link {
+            padding: 1rem;
+        }
+
+        &__link {
+            background: var(
+                --nav-link-background-color,
+                var(--nav-background-color)
+            );
+        }
+    }
+
+    @media all and (max-width: queries.set(940)) {
+        #{$select} {
+            &__in > &__title {
+                display: none;
+            }
+        }
+    }
+
+    #{$select} {
+        @content;
+    }
+}
+
+@mixin use-small-logo {
+    #{$select} {
+        &--use-small-logo {
+            @media (min-width: queries.get(navbar)) {
+                #{$select} {
+                    &__pane {
+                        &::after {
+                            border-radius: 0;
+                            margin-inline: -50%;
+                        }
+                    }
+                }
+            }
+
+            @content;
+        }
+    }
+}

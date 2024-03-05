@@ -1,0 +1,80 @@
+$select: ".competition" !default;
+
+// config
+@use "./../config/colors";
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "./../abstracts/text";
+
+@mixin base {
+    #{$select} {
+        --section-padding-block: 2rem 4rem;
+
+        text-align: center;
+
+        &__in {
+            border-bottom: 2px solid #cccccc;
+        }
+
+        &__title {
+            @include text.section-title {
+                margin-block-end: 2rem;
+            }
+        }
+
+        &__grid {
+            @include group.contain-flex($gap: 3rem 1.5rem) {
+            }
+
+            justify-content: center;
+        }
+
+        &__figure {
+            flex-basis: queries.em(380);
+        }
+
+        &__picture {
+            border: 1px solid;
+
+            > picture {
+                z-index: -1;
+            }
+        }
+
+        & &__picture > iframe {
+            // transition-delay: 1s;
+        }
+
+        &__figcaption {
+            line-height: 1.25;
+        }
+
+        &__name {
+            margin-block: 1.5rem 0.25rem;
+
+            font-size: fonts.em(25);
+            font-weight: 800;
+            color: var(--color-second);
+        }
+
+        p {
+            font-size: fonts.em(20);
+
+            max-width: 25ch;
+            margin-inline: auto;
+        }
+
+        @media all and (max-width: queries.set(900)) {
+            &__title {
+                max-width: 17ch;
+                margin-inline: auto;
+            }
+        }
+
+        @content;
+    }
+}

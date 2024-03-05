@@ -1,0 +1,55 @@
+@mixin scope {
+    // configure main color theme
+    --main-text-color: #333333;
+    --main-background-color: white;
+
+    // configure color palette theme
+    /*
+    variable naming convention: --color-<ordinal-number>-<letter>
+    ordinal-number: represents a different color hue
+    letter: represents a different shade of the <ordinal-number> color hue
+    */
+    --color-first: #ff0000;
+
+    --color-second: #093660;
+    --color-second-grad: linear-gradient(#0a3a67 52%, #02203c 52%, #0a3a67);
+
+    --color-third: #0be04a;
+    --color-third-grad: linear-gradient(#00b837 52%, #009d2f 52%, #00b837);
+
+    // header color theme
+    // --header-background-color: green;
+    // --header-text-color: white;
+
+    // nav color theme
+    --nav-text-color: var(--color-second-a);
+    --nav-background-color: white;
+    --nav-link-background-color: white;
+
+    // footer color theme
+    --footer-background-color: var(--color-second);
+    // --footer-text-color: black;
+
+    --fp-nav-background-color: var(--color-first);
+    --fp-nav-background-color-rollover: var(--color-first);
+    --fp-nav-order-background-color: var(--color-third-grad);
+    --fp-nav-order-background-color-rollover: var(--color-third);
+
+    // button color theme
+    --button-background-color: var(--color-third-grad);
+    --button-background-color-rollover: var(--color-third);
+    --button-background-color-icon: var(--color-second-b);
+    --button-text-color: var(--color-second-b);
+    --button-text-color-rollover: var(--color-second-b);
+    --button-border-color: var(--color-second-b);
+    --button-border-color-rollover: var(--color-second-b);
+
+    // features benefits color theme
+    // --features-benefits-background-color: red;
+    // --features-benefits-text-color: blue;
+    // --features-benefits-list-bullet-color: yellow;
+
+    // ribbon banner color theme
+    // --banner-background-color: black;
+    // --banner-text-color: green;
+}

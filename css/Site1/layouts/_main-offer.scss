@@ -1,0 +1,265 @@
+@use "sass:math";
+
+$select: ".main-offer" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "Shared/scss/templates/base/abstracts/background";
+@use "Shared/scss/templates/base/abstracts/contain";
+@use "./../abstracts/text";
+
+@mixin base {
+    #{$select} {
+        overflow: hidden;
+
+        &__group {
+            @include group.contain-flex($gap: 0.5rem) {
+            }
+
+            overflow: hidden;
+        }
+
+        &__bogo-price-order {
+            @include group.contain-flex($gap: 0.5rem) {
+            }
+        }
+
+        &__bogo {
+            flex-basis: queries.em(367);
+
+            @include contain.container;
+            @include contain.pseudo($fill: true);
+
+            &::before {
+                @include contain.ratio($ratio: math.div(367, 186));
+            }
+        }
+
+        &__price-order-payment {
+            flex-basis: 17em;
+
+            @include group.contain-flex($gap: 0.5rem) {
+            }
+        }
+
+        &__sale-price-strikethrough {
+            flex-basis: 11em;
+
+            @include group.contain-flex($gap: 0.5rem) {
+            }
+        }
+
+        &__sale {
+            color: var(--color-first);
+
+            font-size: queries.em(38);
+            font-style: italic;
+            font-weight: 900;
+        }
+
+        &__price {
+            flex-basis: 12em;
+        }
+
+        &__button {
+            font-size: 0.75em;
+        }
+
+        &__offer {
+            flex-basis: queries.em(653);
+        }
+
+        &__carousel {
+            flex-basis: 100%;
+
+            margin-top: 1rem;
+        }
+
+        &__payment {
+            flex-basis: 13em;
+            font-size: 0.5em;
+        }
+
+        &__product-shot-text {
+        }
+
+        &__video-features {
+            flex-basis: queries.em(499);
+        }
+
+        &__video {
+            margin-block: 1rem;
+        }
+
+        &__icons {
+            flex-basis: 100%;
+
+            @include group.contain-flex($gap: 1rem 0.5rem) {
+            }
+
+            padding-top: 1rem;
+
+            font-size: clamp(0.75em, 1vw, 1em);
+        }
+
+        &__icon {
+            max-width: queries.em(160);
+        }
+
+        &__product-shot-text {
+            @include space.between-flow-elements($gap: 1.5rem) {
+            }
+        }
+
+        &__product-offer {
+            flex: 1;
+
+            picture {
+                @include contain.container;
+                @include contain.pseudo($fill: true);
+
+                &::before {
+                    @include contain.ratio($ratio: math.div(718, 429));
+                }
+            }
+        }
+
+        @content;
+    }
+}
+
+@mixin above-fold {
+    #{$select} {
+        &--above-fold {
+            #{$select} {
+                &__bogo-price-order {
+                    justify-content: space-between;
+                }
+
+                &__bogo {
+                    margin-left: -0.5em;
+                }
+
+                &__blade-attachments {
+                    text-align: center;
+                    font-size: fonts.em(16);
+                }
+
+                &__price-order-payment {
+                    gap: 0.2em;
+                    margin-right: -0.75em;
+                }
+
+                &__sale {
+                    margin-left: -3em;
+                }
+
+                &__price-strikethrough {
+                    margin-left: -3.75em;
+                    margin-top: -2.5em;
+                }
+
+                &__sale-price-strikethrough {
+                    flex-basis: 4em;
+
+                    flex-direction: column;
+                }
+
+                &__price {
+                    margin-left: -6em;
+                    margin-right: -1.5em;
+                    margin-top: 1em;
+                }
+            }
+
+            @media all and (min-width: queries.set(1180)) {
+                #{$select} {
+                    &__offer {
+                        font-size: clamp(0.5em, 1.3vw, 1em);
+                    }
+                }
+            }
+
+            @media all and (max-width: queries.set(1179)) {
+                #{$select} {
+                    &__video-features {
+                        flex-basis: queries.em(653);
+                    }
+                }
+            }
+
+            @media all and (max-width: queries.set(700)) {
+                #{$select} {
+                    &__offer {
+                        font-size: clamp(0.5em, 2.3vw, 1em);
+                    }
+                }
+            }
+
+            @content;
+        }
+    }
+}
+
+@mixin below-fold {
+    #{$select} {
+        &--below-fold {
+            --section-padding-block: 1.5rem 2.5rem;
+
+            #{$select} {
+                &__in {
+                    border-bottom: 2px solid #ccc;
+                }
+
+                &__bogo-price-order {
+                    flex-basis: 29em;
+                }
+
+                &__sale {
+                    font-size: fonts.em(68);
+                    line-height: 1;
+                }
+
+                &__price-order-payment {
+                    flex-basis: auto;
+                }
+
+                &__sale-price-strikethrough {
+                    flex-basis: 21em;
+                    justify-content: center;
+                }
+
+                &__price-strikethrough {
+                    font-size: 1.25em;
+                }
+
+                &__price {
+                    font-size: 1.125em;
+                }
+            }
+
+            @media all and (min-width: queries.set(1180)) {
+                #{$select} {
+                    &__bogo-price-order {
+                        font-size: clamp(0.5em, 1.2vw, 1em);
+                    }
+
+                    &__bogo {
+                        margin-bottom: -2rem;
+                    }
+
+                    &__sale {
+                        margin-block: -2rem;
+                    }
+                }
+            }
+
+            @content;
+        }
+    }
+}

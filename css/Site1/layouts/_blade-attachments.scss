@@ -1,0 +1,99 @@
+$select: ".blade-attachments" !default;
+
+// config
+@use "./../config/colors";
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "./../abstracts/text";
+
+@mixin base {
+    #{$select} {
+        --section-padding-block: 4rem;
+
+        text-align: center;
+
+        b {
+            color: var(--color-first);
+        }
+
+        &__in {
+            border-bottom: 2px solid #cccccc;
+        }
+
+        &__header {
+            padding-bottom: 3rem;
+
+            @include space.between-flow-elements($gap: 1rem) {
+            }
+
+            p {
+                max-width: 103ch;
+                margin-inline: auto;
+
+                font-size: fonts.em(18);
+            }
+        }
+
+        &__title {
+            @include text.section-title {
+                max-width: 27ch;
+                margin-inline: auto;
+            }
+        }
+
+        &__grid {
+            @include group.contain-flex($gap: 3rem) {
+            }
+
+            justify-content: space-evenly;
+        }
+
+        &__desc {
+            font-size: fonts.em(20);
+
+            max-width: 20ch;
+            margin-inline: auto;
+        }
+
+        &__figure {
+            flex-basis: queries.em(317);
+
+            &:nth-child(4) {
+                #{$select} {
+                    &__desc {
+                        max-width: 25ch;
+                    }
+                }
+            }
+        }
+
+        &__picture {
+            border: 1px solid;
+        }
+
+        &__figcaption {
+            line-height: 1.25;
+        }
+
+        &__name {
+            margin-block: 1.5rem 0.25rem;
+
+            font-size: fonts.em(25);
+            font-weight: 800;
+            color: var(--color-second);
+        }
+
+        @media all and (max-width: queries.set(900)) {
+            &__title {
+                font-size: 1.9em;
+                margin-inline: auto;
+            }
+        }
+
+        @content;
+    }
+}

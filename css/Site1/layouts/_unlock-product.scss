@@ -1,0 +1,102 @@
+@use "sass:math";
+
+$select: ".unlock-product" !default;
+
+// config
+@use "./../config/colors";
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "Shared/scss/templates/base/abstracts/contain";
+@use "./../abstracts/text";
+
+@mixin base {
+    #{$select} {
+        --section-padding-block: 4rem;
+
+        b {
+            color: var(--color-first);
+        }
+
+        &__in {
+            border-bottom: 2px solid #cccccc;
+        }
+
+        &__title {
+            @include text.section-title {
+                font-size: fonts.cascade-em(40);
+            }
+        }
+
+        &__heading {
+            font-size: inherit;
+            font-weight: 800;
+            color: var(--color-second);
+
+            + p {
+                margin-top: 0;
+            }
+        }
+
+        &__grid {
+            @include group.contain-flex($gap: 3rem 1.5rem) {
+            }
+
+            justify-content: center;
+        }
+
+        &__text {
+            flex-basis: 59ch;
+
+            @include fonts.base-em(18);
+            line-height: 1.4;
+
+            @include space.between-flow-elements($gap: 1rem) {
+            }
+
+            p {
+                max-width: 54ch;
+            }
+        }
+
+        &__picture-order-button {
+            flex-basis: queries.em(489);
+
+            @include space.between-flow-elements($gap: 2.5rem) {
+            }
+
+            picture {
+                @include contain.container;
+                @include contain.pseudo($fill: true);
+
+                background: #ededed;
+
+                &::before {
+                    @include contain.ratio($ratio: math.div(489, 490));
+                }
+            }
+        }
+
+        &__button {
+            --button-font-size: #{fonts.em(28)};
+
+            display: flex;
+
+            a {
+                flex: 1;
+            }
+        }
+
+        @media all and (max-width: queries.set(900)) {
+            // &__title {
+            //     max-width: 17ch;
+            //     margin-inline: auto;
+            // }
+        }
+
+        @content;
+    }
+}

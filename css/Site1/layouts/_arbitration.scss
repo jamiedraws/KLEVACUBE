@@ -1,0 +1,35 @@
+$select: ".arbitration" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/space";
+@use "Shared/scss/templates/base/abstracts/list";
+
+@mixin base {
+    #{$select} {
+        #content {
+            @include space.between-flow-elements($gap: 1.5rem) {
+            }
+        }
+
+        h1 {
+            line-height: 1.1;
+            font-size: clamp(fonts.em(30), 4vw, fonts.em(40));
+        }
+
+        ul {
+            @include list.structure($offset: 1.5rem, $gap: 1rem);
+            @include list.bullet($bullet: "•", $size: 1em) {
+            }
+        }
+
+        li {
+            display: block;
+        }
+
+        @content;
+    }
+}

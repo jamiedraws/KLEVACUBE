@@ -1,0 +1,37 @@
+$select: ".load-item" !default;
+
+// utils
+@use "Shared/scss/templates/base/utils/load-item";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/tailspin";
+
+@mixin base {
+    @include tailspin.css-tailspin;
+
+    @include load-item.base {
+        &::after {
+            @include tailspin.svg-tailspin(
+                $conf-svg-tailspin: (
+                    size: 3em,
+                    fill: false,
+                    stroke: black,
+                    iterate: 60,
+                    delay: 0.1s,
+                    ondemand: false
+                )
+            );
+
+            opacity: 1;
+            animation-play-state: running;
+        }
+
+        &--success::after {
+            animation-play-state: paused;
+        }
+    }
+
+    #{$select} {
+        @content;
+    }
+}

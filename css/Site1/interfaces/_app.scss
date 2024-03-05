@@ -1,0 +1,74 @@
+$base: 1;
+$scroll-offset: 4em;
+
+// utils
+@use "Shared/scss/templates/base/utils/unit-conversion" with (
+    $base: $base
+);
+@use "./../utils/load-item";
+@use "Shared/scss/templates/base/utils/scope";
+@use "Shared/scss/templates/base/utils/sr";
+@use "./../utils/view" with (
+    $scroll-offset: $scroll-offset
+);
+@use "./../utils/section";
+@use "./../utils/hide";
+
+// components
+@use "Shared/scss/templates/base/components/link";
+@use "Shared/scss/templates/base/components/skip-link";
+
+// layouts
+@use "./../layouts/document" with (
+    $base: $base,
+    $scroll-offset: $scroll-offset
+);
+@use "./../layouts/header";
+@use "./../layouts/nav";
+@use "./../layouts/footer";
+@use "./../layouts/content";
+@use "./../layouts/arbitration";
+
+@mixin critical {
+    // utils
+    @include view.base;
+    @include section.base;
+    @include sr.base;
+
+    @include hide.base;
+    @include load-item.base {
+    }
+
+    // components
+    @include link.base;
+    @include skip-link.base;
+
+    // layouts
+    @include document.base;
+
+    @include scope.get-root {
+        @include document.root;
+    }
+
+    @include scope.for-template {
+        @include document.body;
+    }
+
+    @include header.base;
+    @include header.has-nav;
+
+    @include nav.base;
+    @include nav.use-small-logo;
+    @include footer.base;
+
+    @include content.base;
+    @include content.sub-page;
+
+    @include arbitration.base;
+
+    @content;
+}
+
+@mixin defer {
+    @content;
+}

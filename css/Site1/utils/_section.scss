@@ -1,0 +1,29 @@
+$select: ".section" !default;
+
+// config
+@use "./../config/colors";
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// utils
+@use "Shared/scss/templates/base/utils/section" with (
+    $container: queries.get(section-max),
+    $frame: 1rem
+);
+
+@mixin base {
+    @include section.base {
+        &__in {
+            max-width: var(--section-container);
+            padding-block: var(--section-padding-block, 1.5rem);
+        }
+
+        &__frame {
+            padding: #{section.$frame};
+        }
+    }
+
+    #{$select} {
+        @content;
+    }
+}

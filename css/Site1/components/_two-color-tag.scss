@@ -1,0 +1,59 @@
+$select: ".two-color-tag" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+@mixin base {
+    #{$select} {
+        --skew-container: -15deg;
+        --balance-skew-text: 15deg;
+
+        display: flex;
+        justify-content: center;
+
+        max-width: 35em;
+        margin-inline: auto;
+
+        border: 2px solid var(--color-second);
+        transform: skewX(var(--skew-container));
+
+        &__name {
+            flex-basis: 7em;
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-transform: uppercase;
+            font-size: fonts.em(33);
+            font-weight: 900;
+
+            background: var(--color-second-grad);
+            color: white;
+        }
+
+        &__balance-skew-text {
+            transform: skewX(var(--balance-skew-text));
+        }
+
+        &__text {
+            flex-basis: 6em;
+            flex-grow: 1;
+
+            padding: 0.25em;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            font-style: italic;
+            font-size: fonts.em(18);
+            font-weight: 500;
+        }
+
+        @content;
+    }
+}

@@ -1,0 +1,118 @@
+// utils
+@use "Shared/scss/templates/base/utils/scope";
+@use "./../utils/contain";
+@use "./../utils/element-controller";
+@use "./../utils/disclosure";
+@use "./../utils/divide-sections";
+
+// components
+@use "./../components/button";
+@use "./../components/list";
+@use "./../components/offer";
+@use "./../components/payment";
+@use "./../components/fp-nav";
+@use "./../components/features-benefits";
+@use "./../components/figure-picture-text";
+@use "./../components/banner";
+@use "./../components/bonus-text-product";
+@use "./../components/vimeo-player-button";
+@use "./../components/card";
+@use "./../components/two-color-tag";
+@use "./../components/review-card";
+
+// layouts
+@use "./../layouts/content";
+@use "./../layouts/main-offer";
+@use "./../layouts/accordion";
+@use "./../layouts/slide";
+@use "./../layouts/modal-dialog";
+@use "./../layouts/reviews";
+@use "./../layouts/faq";
+@use "./../layouts/mbg";
+@use "./../layouts/competition";
+@use "./../layouts/unlock-product";
+@use "./../layouts/blade-attachments";
+
+@mixin base {
+    // components
+    @include scope.for-template {
+        @include button.base;
+        @include button.circular;
+    }
+
+    @include two-color-tag.base;
+
+    @include offer.base;
+    @include offer.strikethrough;
+
+    @include list.base;
+
+    @include card.base;
+    @include card.shadow-containers;
+
+    // layouts
+    @include main-offer.base;
+    @include main-offer.below-fold;
+    @include reviews.base;
+    @include accordion.base;
+
+    @content;
+}
+
+@mixin index {
+    // utils
+    @include contain.base;
+    @include element-controller.base;
+    @include disclosure.base;
+    @include divide-sections.base;
+
+    // components
+    @include vimeo-player-button.base;
+    @include vimeo-player-button.inline-label;
+    @include review-card.base;
+
+    @include payment.base;
+
+    @include fp-nav.base;
+    @include features-benefits.base;
+    @include figure-picture-text.base;
+    @include banner.base;
+    @include banner.ribbon;
+    @include bonus-text-product.base;
+
+    // layouts
+    @include slide.base;
+    @include slide.main-offer;
+    @include slide.fade;
+
+    @include main-offer.above-fold;
+    @include modal-dialog.video;
+
+    @include competition.base;
+    @include unlock-product.base;
+    @include blade-attachments.base;
+
+    @include reviews.display-top-reviews;
+
+    // @include content.picture-text;
+    // @include content.in-use;
+    // @include content.text-video;
+    // @include content.communities;
+    // @include content.customer-reviews;
+
+    // @include ingredients.base;
+    // @include ingredients.picture-text;
+    // @include slide.ingredients;
+
+    // @include benefits.base;
+    // @include usage.base;
+    // @include brain-animation.base;
+    // @include faq.base;
+    @include mbg.base;
+
+    @content;
+}
+
+@mixin faq {
+    @content;
+}

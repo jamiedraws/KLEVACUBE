@@ -1,0 +1,43 @@
+@use "sass:map";
+
+$select: ".stripeHostedField" !default;
+$alias: ".StripeElement" !default;
+
+// config
+@use "./../config/colors";
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// components
+@use "Shared/css/template/base/components/validate";
+
+@mixin base {
+    #{$select} {
+        min-height: queries.rem(50);
+
+        &--focus {
+            outline: 1px auto currentColor;
+            box-shadow: none;
+        }
+
+        &--invalid {
+            @include validate.is-invalid;
+        }
+
+        &--complete {
+            @include validate.is-valid;
+        }
+
+        @content;
+    }
+}
+
+@mixin alias {
+    #{$alias} {
+        > * {
+            width: 100%;
+        }
+
+        @content;
+    }
+}

@@ -1,0 +1,96 @@
+$select: ".offers" !default;
+
+// config
+@use "./../config/colors";
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "./../abstracts/text";
+
+@mixin base {
+    #{$select} {
+        text-align: center;
+
+        padding: 2rem 1rem;
+
+        picture {
+            margin-top: 2rem;
+        }
+
+        &__group {
+            @include group.contain-flex($gap: 3rem 1rem) {
+            }
+
+            justify-content: center;
+        }
+
+        &__offer {
+            flex-basis: queries.em(450);
+
+            @include space.between-flow-elements($gap: 2rem) {
+            }
+        }
+
+        &__box {
+            border: 1px solid;
+            padding-inline: 1rem;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__title {
+            font-size: clamp(fonts.em(35), 5vw, fonts.em(40));
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--color-second);
+
+            margin-top: 1rem;
+        }
+
+        &__price-shipping {
+            color: var(--color-third);
+
+            font-style: italic;
+            font-weight: 700;
+            font-size: fonts.em(20);
+
+            line-height: 1;
+
+            max-width: 28ch;
+        }
+
+        &__price {
+            @include fonts.base-em(20);
+
+            > b {
+                font-weight: 500;
+            }
+
+            > small {
+                color: #333333;
+
+                font-size: fonts.cascade-em(16);
+                font-style: italic;
+            }
+        }
+
+        &__button {
+            font-size: fonts.em(25);
+        }
+
+        &__error-anchor {
+            position: absolute;
+        }
+
+        &__alert {
+            flex-basis: 100%;
+        }
+
+        @content;
+    }
+}

@@ -1,0 +1,80 @@
+$select: ".reviews" !default;
+
+// config
+@use "./../config/colors";
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "./../abstracts/text";
+
+@mixin base {
+    #{$select} {
+        --section-padding-block: 4rem;
+
+        text-align: center;
+
+        b {
+            color: var(--color-first);
+        }
+
+        &__in {
+            border-bottom: 2px solid #cccccc;
+        }
+
+        &__header {
+            padding-bottom: 4rem;
+
+            @include space.between-flow-elements($gap: 1rem) {
+            }
+
+            p {
+                max-width: 101ch;
+                margin-inline: auto;
+
+                font-size: fonts.em(18);
+            }
+        }
+
+        &__title {
+            @include text.section-title {
+                max-width: 27ch;
+                margin-inline: auto;
+            }
+        }
+
+        &__reviews {
+            @include space.between-flow-elements($gap: 1.5rem) {
+            }
+        }
+
+        &__footer {
+            margin-top: 3rem;
+        }
+
+        @media all and (max-width: queries.set(900)) {
+            &__title {
+                margin-inline: auto;
+            }
+        }
+
+        @content;
+    }
+}
+
+@mixin display-top-reviews {
+    #{$select} {
+        &--display-top-reviews {
+            #{$select} {
+                &__reviews {
+                    max-width: 61em;
+                    margin-inline: auto;
+                }
+            }
+
+            @content;
+        }
+    }
+}

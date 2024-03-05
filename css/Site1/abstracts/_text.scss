@@ -1,0 +1,43 @@
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+@mixin call-out {
+    font-weight: 400;
+    text-transform: uppercase;
+    color: var(--color-second-c);
+    letter-spacing: 0.25em;
+    line-height: 1;
+}
+
+@mixin header-title {
+    @include section-title {
+        font-size: clamp(fonts.em(20), 5vw, fonts.em(30));
+        line-height: 1.25;
+    }
+
+    @content;
+}
+
+@mixin section-title {
+    font-size: clamp(fonts.em(24), 8vw, fonts.em(55));
+    font-weight: 800;
+    font-style: italic;
+    line-height: 1.1;
+
+    color: var(--color-second);
+
+    b {
+        color: var(--color-first);
+        font-weight: inherit;
+    }
+
+    @content;
+}
+
+@mixin section-body-copy {
+    font-size: fonts.em(18);
+    line-height: 1.75;
+
+    @content;
+}

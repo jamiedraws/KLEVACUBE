@@ -1,0 +1,99 @@
+$select: ".order" !default;
+
+// config
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "Shared/scss/templates/base/abstracts/background";
+
+@mixin base {
+    #{$select} {
+        b {
+            font-weight: 700;
+            color: var(--color-second);
+        }
+
+        &__group {
+            @include group.contain;
+            justify-content: space-between;
+
+            overflow: visible;
+        }
+
+        &__header {
+            padding: 1.5rem 1rem 0;
+            margin-top: 1rem;
+
+            font-family: fonts.get(primary);
+            text-align: center;
+            line-height: 1.25;
+        }
+
+        &__title {
+            text-transform: uppercase;
+
+            font-size: clamp(fonts.em(30), 4vw, fonts.em(55));
+            font-weight: 800;
+            font-style: italic;
+            line-height: 1.15;
+
+            color: var(--color-first);
+
+            @media all and (max-width: queries.get(document-mobile-portrait)) {
+                font-size: fonts.em(35);
+            }
+
+            margin-bottom: 1rem;
+        }
+
+        &__callout {
+            font-size: fonts.em(24);
+            font-weight: 500;
+        }
+
+        &__form {
+            flex-basis: 100%;
+        }
+
+        &__offer-image {
+            flex-basis: queries.em(386);
+        }
+
+        &__offer-details {
+            flex-basis: 100%;
+        }
+
+        @content;
+    }
+}
+
+@mixin responsive {
+    #{$select} {
+        @media all and (max-width: queries.set(960)) {
+            overflow: hidden;
+
+            &__form,
+            &__offer-image {
+                flex-basis: 100%;
+            }
+
+            &__offer-image {
+                display: none;
+            }
+        }
+
+        @media all and (max-width: queries.get(document-mobile-portrait)) {
+            &__header {
+                font-size: 3vw;
+            }
+
+            &__form {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,110 @@
+$select: ".button" !default;
+
+// config
+@use "../config/fonts";
+@use "./../config/queries";
+
+// components
+@use "Shared/scss/templates/base/components/button";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/button" as _button;
+
+@mixin base {
+    @include button.base {
+        --background-color: var(--button-background-color, var(--color-first));
+        --background-color-rollover: var(
+            --button-background-color-rollover,
+            var(--color-first-a)
+        );
+        --background-color-icon: var(
+            --button-background-color-icon,
+            var(--background-color)
+        );
+
+        --border-color: var(--button-border-color, var(--background-color));
+        --border-color-rollover: var(
+            --button-border-color-rollover,
+            var(--border-color)
+        );
+
+        --text-color: var(--button-text-color, var(--main-background-color));
+        --text-color-rollover: var(
+            --button-text-color-rollover,
+            var(--text-color)
+        );
+
+        --button-padding: 0.5em 1em;
+
+        overflow: hidden;
+
+        padding: var(--button-padding);
+        border: 2px solid var(--border-color);
+        border-radius: 1em;
+
+        align-self: center;
+
+        color: var(--text-color);
+
+        font-size: clamp(1.75em, 4vw, var(--button-font-size, fonts.em(20)));
+        font-weight: 700;
+        font-family: var(--body-font-family);
+
+        &:before {
+            background: var(--background-color);
+        }
+
+        &::after {
+            background: var(--background-color-rollover);
+        }
+
+        &:link,
+        &:visited {
+            text-decoration: none;
+        }
+
+        &:hover,
+        &:focus {
+            color: var(--text-color-rollover);
+            border-color: var(--border-color-rollover);
+
+            #{$select} {
+                &__icon {
+                    background: var(--background-color-rollover);
+                    fill: currentColor;
+                }
+            }
+        }
+
+        &[aria-expanded="true"] {
+            color: var(--background-color);
+            border-color: var(--text-color);
+
+            &::after {
+                background: var(--text-color);
+                opacity: 1;
+            }
+        }
+
+        // @media all and (max-width: queries.get(document-mobile-portrait)) {
+        //     font-size: var(--fon);
+        // }
+    }
+
+    #{$select} {
+        @content;
+    }
+}
+
+@mixin circular {
+    #{$select} {
+        &--circular {
+            @include _button.capsule-circular;
+
+            #{$select} {
+            }
+
+            @content;
+        }
+    }
+}

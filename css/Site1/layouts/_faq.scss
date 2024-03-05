@@ -1,0 +1,33 @@
+$select: ".faq" !default;
+
+// config
+@use "./../config/colors";
+@use "./../config/fonts";
+@use "./../config/queries";
+
+// abstracts
+@use "Shared/scss/templates/base/abstracts/group";
+@use "Shared/scss/templates/base/abstracts/space";
+@use "./../abstracts/text";
+
+@mixin base {
+    #{$select} {
+        @include fonts.base-em(18);
+
+        text-align: center;
+
+        &__header {
+            margin-bottom: 3rem;
+        }
+
+        &__title {
+            @include text.section-title {
+                font-size: fonts.cascade-em(40);
+
+                margin-bottom: 1rem;
+            }
+        }
+
+        @content;
+    }
+}
